@@ -1,30 +1,33 @@
-# Blackjack de Cartas
+# Card Blackjack Game
 
-¡Bienvenido al emocionante juego de Blackjack de Cartas!
+Thank you for viewing my JS practice and now... Welcome to the  Card Blackjack Game!
 
-En este juego, tu objetivo es vencer a la computadora obteniendo 21 puntos o acercándote lo más posible a este número sin pasarte. Este juego se creará utilizando JavaScript y tendrás que enfrentarte a un desafiante contrincante: la computadora.
+In this game, your objective is to beat the computer by getting 21 points or getting as close as possible to this number without going over. This game will be created using JavaScript, and you'll face a challenging opponent: the computer.
 
-## Instrucciones de Juego
+## Game Instructions
 
-1. **Inicio del Juego**: Al comenzar, tanto tú como la computadora recibirán dos cartas cada uno. Ambas cartas del jugador serán visibles, pero solo una carta de la computadora estará expuesta.
+### Game Start:
+At the beginning, both you and the computer will receive two cards each. Both player's cards will be visible, but only one of the computer's cards will be exposed.
 
-2. **Valor de las Cartas**: Las cartas numéricas (2 al 10) tienen el valor que indican, las figuras (J, Q, K) valen 10 puntos cada una, y el As puede valer 1 u 11 puntos, según convenga al jugador.
+### Card Values:
+Numeric cards (2 to 10) have the value they indicate, face cards (J, Q, K) are worth 10 points each, and the Ace can be worth 1 or 11 points, depending on what benefits the player.
 
-3. **Turno del Jugador**: Tienes la opción de "pedir" cartas adicionales (hit) para aumentar tu puntuación o "quedarte" con las cartas que tienes (stand). Si la suma de tus cartas supera 21, pierdes automáticamente.
+### Player's Turn:
+You have the option to "hit" for additional cards to increase your score or "stand" with the cards you have. If the sum of your cards exceeds 21, you automatically lose.
 
-4. **Turno de la Computadora**: Una vez que decides quedarte, la computadora revela su segunda carta y toma sus decisiones según una estrategia predefinida. La computadora intentará superar tu puntuación sin pasarse de 21.
+### Computer's Turn:
+Once you decide to stand, the computer reveals its second card and makes decisions based on a predefined strategy. The computer will try to beat your score without going over 21.
 
-5. **Determinación del Ganador**: Si obtienes exactamente 21 puntos con tus dos primeras cartas (un As y una figura o un 10), ganas automáticamente. Si la computadora y tú tienen menos de 21 puntos, el que tenga la puntuación más alta gana. Si ambos tienen la misma puntuación, se considera un empate.
+### Determining the Winner:
+If you get exactly 21 points with your two initial cards (an Ace and a face card or a 10), you automatically win. If the computer and you have less than 21 points, the one with the highest score wins. If both have the same score, it's considered a tie.
 
-## Características de la Aplicación
+## Application Features
+- Intuitive graphical interface displaying player and computer cards.
+- Clear options for the player to request an additional card or stand with the current cards.
+- Implementation of game logic to determine the winner and display the result.
+- Computer strategy implemented to make intelligent decisions during the game.
 
-- Interfaz gráfica intuitiva que muestra las cartas del jugador y de la computadora.
-- Opciones claras para que el jugador pida una carta adicional o se quede con las cartas actuales.
-- Implementación de la lógica del juego para determinar al ganador y mostrar el resultado.
-- Estrategia de la computadora implementada para tomar decisiones inteligentes durante el juego.
+## Running the Game
+To run the game, simply open the index.html file in your favorite web browser and start enjoying the Card Blackjack Game challenge.
 
-## Ejecución del Juego
-
-Para ejecutar el juego, simplemente abre el archivo `index.html` en tu navegador web favorito y comienza a disfrutar del desafío del Blackjack de Cartas contra la computadora.
-
-¡Que la suerte esté de tu lado mientras compites en este emocionante juego!
+May luck be on your side as you compete in this thrilling game!
