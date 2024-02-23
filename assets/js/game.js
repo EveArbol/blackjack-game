@@ -84,13 +84,13 @@ const computerTurn = (minPts) => {
 
   setTimeout(() => {
     if (computerScore === minPts) {
-      alert("¡Tie!");
+      Swal.fire("🔥 ¡Tie! 🔥");
     } else if (minPts > 21) {
-      alert('¡Computer Wins!');
+      Swal.fire("❌¡Computer Wins!❌");
     } else if (computerScore > 21) {
-      alert("¡Player Wins!");
+      Swal.fire("✨ ¡Player Wins! ✨");
     } else{
-        alert('¡Computer Wins!')
+        Swal.fire("❌ ¡Computer Wins! ❌");
     }
   }, 100);
 };
