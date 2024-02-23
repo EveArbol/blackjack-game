@@ -5,12 +5,14 @@
  * 2S = Two of Spades
  */
 
+// Create a deck of cards
 let deck = [];
-const tipos = ['C','D','H','S'];
-const especiales = ['A','J','Q','K'];
+const types = ['C','D','H','S'];
+const specials = ['A','J','Q','K'];
 
+// Players' scores
 let scorePlayer = 0;
-    scoreComputer = 0;
+let scoreComputer = 0;
 
 // HTML References
 
@@ -19,16 +21,17 @@ const scoresHtml = document.querySelectorAll('small');
 const cardsPlayer = document.querySelector('#player-cards');
 const cardsComputer = document.querySelector('#computer-cards');
 
+// Function to create a deck of cards
 const crearDeck = () => {
     for(let i = 2; i <= 10; i++){
-        for(let tipo of tipos){
-            deck.push( i + tipo )
+        for(let type of types){
+            deck.push( i + type )
         }
     }
     
-    for(let tipo of tipos){
-        for(let esp of especiales){
-            deck.push( esp + tipo )
+    for(let type of types){
+        for(let esp of specials){
+            deck.push( esp + type )
         }
     }
 
@@ -40,34 +43,34 @@ const crearDeck = () => {
 
 crearDeck();
 
-const pedirCarta = () => {
+// Function to get a card from the deck
+const GetCard = () => {
 
     if( deck.length === 0 ){
         throw 'No hay cartas en el deck';
     }
-    const carta = deck.pop();
+    const card = deck.pop();
 
-    return carta;
+    return card;
 }
 
-// pedirCarta();
-
-const valorCarta = ( carta ) => {
-    const valor = carta.substring(0, carta.length - 1);
-    return ( isNaN(valor) ) ?
-    ( valor === 'A' ) ? 11 : 10
-    : valor * 1;
+// Function to get the value of a card
+const valueCard = ( carta ) => {
+    const value = carta.substring(0, carta.length - 1);
+    return ( isNaN(value) ) ?
+    ( value === 'A' ) ? 11 : 10
+    : value * 1;
 }
 
+// Get the value of a card
+const value = valueCard( GetCard() );
 
-const valor = valorCarta( pedirCarta() );
-
-// Eventos
+// Event when clicking the button to get a card
 
 btnGet.addEventListener('click', () => {
-    const card = pedirCarta();
+    const card = GetCard();
     
-    scorePlayer = scorePlayer + valorCarta(card);
+    scorePlayer = scorePlayer + valueCard(card);
     scoresHtml[0].innerHTML = scorePlayer;
 
     const imgCard = document.createElement('img');
@@ -75,11 +78,12 @@ btnGet.addEventListener('click', () => {
     imgCard.classList.add('card');
     cardsPlayer.append( imgCard );
 
+    // Check if the player has lost 
     if(scorePlayer > 21){
         btnGet.disabled = true;
         console.log('Perdiste perro hp');
     } else if ( scorePlayer === 21 ) {
-        console.log('21');
+        console.log('21, great!');
     }
 
 });
