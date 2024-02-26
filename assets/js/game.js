@@ -5,30 +5,45 @@
 * 2S = Two of Spades
 */
 
-(() => {
+const myModule = (() => {
   'use strict';
-
+  
   // Create a deck of cards
-  let deck = [];
-  const types = ["C", "D", "H", "S"];
-  const specials = ["A", "J", "Q", "K"];
+  let   deck     = [];
+  const types    = ["C", "D", "H", "S"],
+        specials = ["A", "J", "Q", "K"];
   
   // Players' scores
-  let playerScore = 0,
-  computerScore = 0;
+  let scoresPlayers = [];
   
   // HTML References
+  const btnGet  = document.querySelector("#btnGet"),
+  btnStop = document.querySelector("#btnStop"),
+  btnNew  = document.querySelector("#btnNew");
   
-  const btnGet = document.querySelector("#btnGet");
-  const btnStop = document.querySelector("#btnStop");
-  const btnNew = document.querySelector("#btnNew");
+  const scoresHtml    = document.querySelectorAll("small"),
+  divPlayersCards = document.querySelectorAll(".divCards");
   
-  const scoresHtml = document.querySelectorAll("small");
-  const cardsPlayer = document.querySelector("#player-cards");
-  const cardsComputer = document.querySelector("#computer-cards");
+  // This function initialises the game
+  const initialiseGame = (playersNumber = 2) => {
+    deck = createDeck();
+
+    scoresPlayers = [];
+    for( let i = 0; i < playersNumber; i++ ) {
+      scoresPlayers.push(0);
+    }
+    scoresHtml.forEach( e => e.innerText = 0 );
+    divPlayersCards.forEach( e => e.innerText = '' );
+
+    btnGet.disabled  = false;
+    btnStop.disabled = false;
+
+  }
   
   // Function to create a deck of cards
-  const crearDeck = () => {
+  const createDeck = () => {
+    
+    deck = [];
     for (let i = 2; i <= 10; i++) {
       for (let type of types) {
         deck.push(i + type);
@@ -40,21 +55,16 @@
         deck.push(esp + type);
       }
     }
-    
-    deck = _.shuffle(deck);
-    return deck;
+    return _.shuffle(deck);
   };
-  
-  crearDeck();
   
   // Function to get a card from the deck
   const GetCard = () => {
     if (deck.length === 0) {
       throw "No cards in the deck";
     }
-    const card = deck.pop();
-    return card;
-  };
+    return deck.pop();
+  }
   
   // Function to get the value of a card
   const valueCard = (card) => {
@@ -62,23 +72,22 @@
     return isNaN(value) ? (value === "A" ? 11 : 10) : value * 1;
   };
   
-  // Computer Turn
-  const computerTurn = (minPts) => {
-    do {
-      const card = GetCard();
-      
-      computerScore = computerScore + valueCard(card);
-      scoresHtml[1].innerHTML = computerScore;
-      
-      const imgCard = document.createElement("img");
-      imgCard.src = `assets/img/cards-game/${card}.png`;
-      imgCard.classList.add("card");
-      cardsComputer.append(imgCard);
-      
-      if (minPts > 21) {
-        break;
-      }
-    } while (computerScore < minPts && minPts <= 21);
+  const scoresAccumulation = (card, turn) => {
+    scoresPlayers[turn] = scoresPlayers[turn] + valueCard(card);
+    scoresHtml[turn].innerText = scoresPlayers[turn];
+    return scoresPlayers[turn];
+  }
+  
+  const createCard = (card, turn) => {
+    const imgCard = document.createElement("img");
+    imgCard.src = `assets/img/cards-game/${card}.png`;
+    imgCard.classList.add("card");
+    divPlayersCards[turn].append(imgCard);
+  }
+  
+  const winPlayer = () => {
+    
+    const [ minPts, computerScore ] = scoresPlayers;
     
     setTimeout(() => {
       if (computerScore === minPts) {
@@ -93,18 +102,29 @@
     }, 100);
   };
   
-  // Events
   
+  
+  // Computer Turn
+  const computerTurn = (minPts) => {
+    let computerScore = 0;
+    do {
+      const card = GetCard();
+      computerScore = scoresAccumulation( card, scoresPlayers.length -1 );
+      createCard( card, scoresPlayers.length -1 );
+      
+    } while ( (computerScore < minPts) && (minPts <= 21));
+    
+    winPlayer();
+  }
+  
+  // Events
   btnGet.addEventListener("click", () => {
+    
     const card = GetCard();
+    const playerScore = scoresAccumulation(card, 0);
     
-    playerScore = playerScore + valueCard(card);
-    scoresHtml[0].innerHTML = playerScore;
+    createCard( card, 0 );
     
-    const imgCard = document.createElement("img");
-    imgCard.src = `assets/img/cards-game/${card}.png`;
-    imgCard.classList.add("card");
-    cardsPlayer.append(imgCard);
     
     if (playerScore > 21) {
       btnGet.disabled = true;
@@ -116,28 +136,21 @@
       computerTurn(playerScore);
     }
   });
-  
+
   btnStop.addEventListener("click", () => {
     btnGet.disabled = true;
     btnStop.disabled = true;
     
-    computerTurn(playerScore);
+    computerTurn(scoresPlayers[0]);
   });
   
   btnNew.addEventListener("click", () => {
-    deck = [];
-    deck = crearDeck();
-    
-    playerScore = 0;
-    computerScore = 0;
-    
-    scoresHtml[0].innerText = 0;
-    scoresHtml[1].innerText = 0;
-    
-    cardsComputer.innerHTML = "";
-    cardsPlayer.innerHTML = "";
-    
-    btnGet.disabled = false;
-    btnStop.disabled = false;
+  
+    initialiseGame();
   });
+  return {
+    newGame: initialiseGame
+  };
+
+
 })();

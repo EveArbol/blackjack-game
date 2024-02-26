@@ -23,8 +23,8 @@
     <div class="row mt-2">
       <div id="divButtons" class="col text-center">
         <button id="btnNew" class="btn btn-danger">New Game</button>
-        <button id="btnGet" class="btn btn-primary">Get cards</button>
-        <button id="btnStop" class="btn btn-primary">Stop</button>
+        <button id="btnGet" disabled="disabled" class="btn btn-primary">Get cards</button>
+        <button id="btnStop" disabled="disabled" class="btn btn-primary">Stop</button>
       </div>
     </div>
 
@@ -33,7 +33,7 @@
 
         <h1>Player 1 - <small>0</small></h1>
 
-        <div class="d-flex" id="player-cards">
+        <div id="player-cards" class="divCards d-flex">
          <!-- <img class="card" src="assets/img/cards-game/10H.png" /> -->
         </div>
       </div>
@@ -44,7 +44,7 @@
 
         <h1>Computer - <small>0</small></h1>
 
-        <div class="d-flex" id="computer-cards">
+        <div id="computer-cards" class="divCards d-flex">
           <!-- <img class="card" src="assets/img/cards-game/2S.png" /> -->
           
         </div>
@@ -54,5 +54,8 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="assets/js/underscore-min.js"></script>
     <script src="assets/js/game.js"></script>
+    <script>
+        myModule.newGame();
+    </script>
   </body>
 </html>
